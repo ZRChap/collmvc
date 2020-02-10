@@ -43,7 +43,7 @@ session_start();
 
 // Explode url into array
 $url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/')) : [];
-$db = DB::getInstance();
+
 
 // Route the request
 Router::route($url);
