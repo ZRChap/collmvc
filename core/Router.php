@@ -18,10 +18,9 @@ class Router {
         
 
         //action
-        $action = (isset($url[0]) && $url[0] != '') ? $url[0] : 'indexAction';
+        $action = (isset($url[0]) && $url[0] != '') ? $url[0]. 'Action' : 'indexAction';
         $action_name = $action;
         array_shift($url);
-        $action_name = $action;
         
         // if(isset($url[0]) && $url[0] != '') {
         //     $action = $url[0] . 'Action';
@@ -39,5 +38,15 @@ class Router {
         } else {
             die('That method does not exist in the controller \"' . $controller_name . '\"');
         }
+
+        echo "controller is " . $controller_name;
+        echo "<br>";
+        echo "method is " . $action_name;
+        echo "<br>";
+        echo "params are "; 
+        echo "<br>";
+        print_r($queryParams);
+        
     }
+
 }

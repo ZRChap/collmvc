@@ -33,9 +33,9 @@ class View {
     }
 
     public function end() {
-        if($this->_outputBuffer = 'head') {
+        if($this->_outputBuffer == 'head') {
             $this->_head = ob_get_clean();
-        } else if($this->_outputBuffer = 'body') {
+        } else if($this->_outputBuffer == 'body') {
             $this->_body = ob_get_clean();
         } else {
             die('You must first run the start method.');

@@ -1,6 +1,8 @@
+
 <?php $this->start('head'); ?>
-    <meta content="test" />
+    
 <?php $this->end(); ?>
 
 <?php $this->start('body'); ?>
-    <h1>WHY IS IT LOADING THE BODY</h1>
+    <button class="btn btn-primary">button</button>
+<?php $this->end(); ?>
