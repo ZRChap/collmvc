@@ -41,7 +41,68 @@ class DB {
         }
         return $this;
     }
+    
+    public function find($table, $params = []) {
+        if($this->_read($table, $params)) {
+            return $this->results();
+        }
+    }
 
+    public function findFirst($table, $params = []) {
+        if($this->_read($table, $params)) {
+            return $this->first();
+        }
+        return false;
+    }
+
+    protected function _read($table, $params = []) {
+        $conditionString = '';
+        $bind = [];
+        $order = '';
+        $limit = '';
+
+        // conditions
+        if(isset($params['conditions'])) {
+            if(is_array($params['conditions'])) {
+                foreach($params['conditions'] as $condition) {
+                    $conditionString .= ' ' . $condition . ' AND';
+                }
+                $conditionString = trim($conditionString);
+                $conditionString = rtrim($conditionString, ' AND');
+            } else {
+                $conditionString = $params['conditions'];
+            }
+            if($conditionString != '') {
+            $conditionString = ' WHERE ' . $conditionString;
+            }
+        }
+
+        // bind
+        if(array_key_exists('bind', $params)) {
+            $bind = $params['bind'];
+        }
+
+        // order
+        if(array_key_exists('order', $params)) {
+            $order = ' ORDER BY ' . $params['order'];
+        }
+
+        // limit
+        if(array_key_exists('limit', $params)) {
+            $limit = ' LIMIT ' . $params['limit'];
+        }
+    $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
+
+    if($this->query($sql, $bind)) {
+        if(!count($this->_result)) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+
+    }
+    
     public function insert($table, $fields = []) {
         $fieldString = '';
         $valueString = '';
