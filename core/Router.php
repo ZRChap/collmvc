@@ -37,16 +37,7 @@ class Router {
             call_user_func_array([$dispatch, $action], $queryParams);
         } else {
             die('That method does not exist in the controller \"' . $controller_name . '\"');
-        }
-
-        echo "controller is " . $controller_name;
-        echo "<br>";
-        echo "method is " . $action_name;
-        echo "<br>";
-        echo "params are "; 
-        echo "<br>";
-        print_r($queryParams);
-        
+        }   
     }
 
 }

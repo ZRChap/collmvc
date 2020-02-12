@@ -15,3 +15,8 @@ function pnd($data) {
     echo '</pre>';
     die();
 }
+
+// sanitize user input
+function sanitize($dirty) {
+    return htmlentities($dirty, ENT_QUOTES, 'UTF-8');
+}
