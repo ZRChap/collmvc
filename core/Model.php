@@ -14,6 +14,7 @@ class Model {
     protected function _setTableColumns() {
         $columns = $this->get_columns();
         foreach($columns as $column) {
+            $columnName = $column->Field;
             $this->_columnNames[] = $column->Field;
             $this->{$columnName} = NULL;
         }
@@ -35,9 +36,11 @@ class Model {
     }
 
     public function findFirst($params = []) {
-        $resultsQuery = $this->_db->findFirst($this->_table, $params);
-        $results = new $this->_modelName($this->_table);
-        $result->populateObjData($resultQuery);
+        $resultQuery = $this->_db->findFirst($this->_table, $params);
+        $result = new $this->_modelName($this->_table);
+        if($resultQuery) {
+            $result->populateObjData($resultQuery);
+        }
         return $result;
     }
 
@@ -50,7 +53,7 @@ class Model {
         foreach($this->_columnNames as $column) {
             $fields[$column] = $this->$column;
         }
-        // determine wether to updated or insert
+        // determine wether to update or insert
         if(property_exists($this, 'id') && $this->id != '') {
             return $this->update($this->id, $fields);
         } else {
@@ -102,7 +105,7 @@ class Model {
     }
 
     protected function populateObjData($result) {
-        foreach($result as $key => $value) {
+        foreach($result as $key => $val) {
             $this->$key = $val;
         }
     }

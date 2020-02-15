@@ -6,8 +6,7 @@ class Home extends Controller {
     }
 
     public function indexAction() {
-        $db = DB::getInstance();
-     
+       
 
         // $updateUser = $db->update('users', 23, $fields);
         // $delete = $db->delete('users', 21);
