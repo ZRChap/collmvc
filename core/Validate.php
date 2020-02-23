@@ -94,8 +94,13 @@ class Validate {
     public function displayErrors() {
         $html = '<ul class="bg-danger">';
         foreach($this->_errors as $error) {
-            $html .= '<li>'.$error[0].'</li>';
-            $html.= '<script>jQuery("document").ready(function(){jQuery("#'.$error[1].'").parent().closest("div").addClass("has-error");});</script>';
+            if(is_array($error)) {
+                $html .= '<li>'.$error[0].'</li>';
+                $html .= '<script>jQuery("document").ready(function(){jQuery("#'.$error[1].'").addClass("is-invalid");});</script>';
+            } else {
+                $html .= '<li>'.$error.'</li>';
+            }
+            
         }
 
         $html .= '</ul>';

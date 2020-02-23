@@ -19,7 +19,8 @@ class Register extends Controller {
                 ],
                 'password' => [
                     'display' => "Password",
-                    'required' => true
+                    'required' => true,
+                    'min' => 6
                 ]
             ]);
             
@@ -30,7 +31,9 @@ class Register extends Controller {
                     $remember = (isset($_POST['remember_me']) && Input::get('remember_me')) ? true : false;
                     $user->login($remember);
                     Router::redirect('');
-                }
+                } else {
+                    $validation->addError("Invalid username or password.");
+                } 
                 
             }
         }
